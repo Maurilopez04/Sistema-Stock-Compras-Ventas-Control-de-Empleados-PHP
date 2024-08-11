@@ -13,6 +13,48 @@ $clientes = $stmt->fetchAll();
     <link href="scripts/select2/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="scripts/select2/select2.min.js"></script>
+    <style>
+        /* Estilo general para select2 */
+.select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border: 1px solid #ced4da;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #495057;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 100%;
+}
+/* Selecciona y oculta el segundo span dentro de cualquier .col-md-4 */
+.col-md-4 > .select2-container:nth-of-type(2) {
+    display: none !important;
+}
+/* Estilos para modo oscuro */
+[data-bs-theme="dark"] .select2-container--default .select2-selection--single {
+    background-color: transparent; /* Fondo oscuro */
+    border: 1px solid #495057; /* Borde gris oscuro */
+}
+
+[data-bs-theme="dark"] .select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #e9ecef; /* Texto claro */
+}
+
+[data-bs-theme="dark"] .select2-container--default .select2-selection--single .select2-selection__arrow {
+    background-color: #495057; /* Fondo de la flecha */
+}
+
+[data-bs-theme="dark"] .select2-dropdown {
+    background-color: #343a40; /* Fondo oscuro del dropdown */
+    color: #e9ecef; /* Texto claro del dropdown */
+}
+
+[data-bs-theme="dark"] .select2-results__option--highlighted {
+    background-color: #495057; /* Opción seleccionada en modo oscuro */
+    color: #fff; /* Texto de la opción seleccionada */
+}
+</style>
 </head>
 <body>
 
@@ -75,7 +117,7 @@ function initSelect2(element, url, type) {
             }
         },
         placeholder: 'Selecciona una opción',
-        minimumInputLength: 1,
+        minimumInputLength: 2,
         width: '100%'
     }).on('select2:select', function (e) {
         var data = e.params.data.id.split('|');
@@ -95,7 +137,7 @@ function agregarProducto() {
     }
     newSelect.empty(); // Limpia las opciones previas
 
-    initSelect2(newSelect, 'buscar_productos.php');
+    initSelect2(newSelect, 'buscar_productos.php', 'venta'); // Añadir 'venta' como tipo
 
     document.getElementById('productos-container').appendChild(productoRow);
 }
@@ -109,13 +151,14 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-// Llamar a initSelect2 con tipo 'venta'
-initSelect2($('#cliente'), 'buscar_clientes.php', 'venta');
-initSelect2($('.producto-select'), 'buscar_productos.php', 'venta');
+    // Llamar a initSelect2 con tipo 'venta'
+    initSelect2($('#cliente'), 'buscar_clientes.php', 'venta');
+    $('.producto-select').each(function () {
+        initSelect2($(this), 'buscar_productos.php', 'venta');
+    });
 });
-
-
 </script>
+
 </body>
 </html>
 
