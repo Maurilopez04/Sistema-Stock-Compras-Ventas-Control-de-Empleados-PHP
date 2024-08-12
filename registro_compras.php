@@ -72,7 +72,7 @@ $compras = $stmt->fetchAll();
                     <td><?= htmlspecialchars($compra['proveedor_nombre']) ?></td>
                     <td><?= htmlspecialchars($compra['producto_nombre']) ?></td>
                     <td><?= htmlspecialchars($compra['cantidad']) ?></td>
-                    <td><?= htmlspecialchars(number_format($compra['precio'], 2)) ?></td>
+                    <td><?= htmlspecialchars(number_format($compra['precio'], 0)) ?></td>
                     <td><?= htmlspecialchars($compra['fecha']) ?></td>
                 </tr>
             <?php endforeach; ?>

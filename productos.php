@@ -125,15 +125,18 @@ $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </td>
                     <td><?= $producto['nombre'] ?></td>
                     <td><?= number_format($producto['precioMinorista'], 0); ?></td>
-                    <td><?= $producto['cantidad'] ?></td>
+                    <td class="<?= $producto['cantidad'] < 0 ? 'bg-danger' : ($producto['cantidad'] == 0 ? 'bg-warning' : '') ?>">
+    <?= $producto['cantidad'] ?>
+</td>
+
                     <td class="d-none d-sm-table-cell"><?= $producto['categoria_nombre'] ?></td>
                     <td><?= $producto['marca_nombre'] ?></td>
                     <td>
                         <div class="d-flex justify-content-center align-items-center h-100">
-                            <button class="btn btn-primary btn-sm col-md-4" data-bs-toggle="modal" data-bs-target="#editModal" data-id="<?= $producto['id'] ?>" data-nombre="<?= $producto['nombre'] ?>" data-descripcion="<?= $producto['descripcion'] ?>" data-costo="<?= $producto['costo'] ?>" data-precio-mayorista="<?= $producto['precioMayorista'] ?>" data-precio-minorista="<?= $producto['precioMinorista'] ?>" data-cantidad="<?= $producto['cantidad'] ?>" data-categoria-id="<?= $producto['categoria_id'] ?>" data-marca-id="<?= $producto['marca_id']?>" data-imagen="<?= $producto['imagen'] ?>">Editar</button>
+                            <button class="btn btn-primary btn-sm col-md-4" data-bs-toggle="modal" data-bs-target="#editModal" data-id="<?= $producto['id'] ?>" data-nombre="<?= $producto['nombre'] ?>" data-descripcion="<?= $producto['descripcion'] ?>" data-costo="<?= number_format($producto['costo'], 0) ?>" data-precio-mayorista="<?= number_format($producto['precioMayorista'], 0 ) ?>" data-precio-minorista="<?= number_format($producto['precioMinorista'], 0) ?>" data-cantidad="<?= $producto['cantidad'] ?>" data-categoria-id="<?= $producto['categoria_id'] ?>" data-marca-id="<?= $producto['marca_id']?>" data-imagen="<?= $producto['imagen'] ?>">Editar</button>
                             <button class="btn btn-danger btn-sm ms-2 col-md-5" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?= $producto['id'] ?>">Eliminar</button>
 
-                            <button class="btn btn-warning btn-sm ms-1 col-md-3" data-bs-toggle="modal" data-bs-target="#viewModal" data-nombre="<?= $producto['nombre'] ?>" data-descripcion="<?= $producto['descripcion'] ?>" data-costo="<?= $producto['costo'] ?>" data-precio-mayorista="<?= $producto['precioMayorista'] ?>" data-precio-minorista="<?= $producto['precioMinorista'] ?>" data-cantidad="<?= $producto['cantidad'] ?>" data-categoria-nombre="<?= $producto['categoria_nombre'] ?>" data-imagen="uploads/<?= $producto['imagen'] ?>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                            <button class="btn btn-warning btn-sm ms-1 col-md-3" data-bs-toggle="modal" data-bs-target="#viewModal" data-nombre="<?= $producto['nombre'] ?>" data-descripcion="<?= $producto['descripcion'] ?>" data-costo="<?= number_format($producto['costo'], 0) ?>" data-precio-mayorista="<?= number_format($producto['precioMayorista'], 0) ?>" data-precio-minorista="<?= number_format($producto['precioMinorista'], 0) ?>" data-cantidad="<?= $producto['cantidad'] ?>" data-categoria-nombre="<?= $producto['categoria_nombre'] ?>" data-imagen="uploads/<?= $producto['imagen'] ?>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
   <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
   <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
 </svg></button>

@@ -2,33 +2,55 @@
 require "config/start.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nombre = $_POST['nombre'];
-    $contacto = $_POST['contacto'];
-    $id = isset($_POST['id']) ? $_POST['id'] : null;
+    if (isset($_POST['delete']) && isset($_POST['id'])) {
+        $id = $_POST['id'];
 
-    try {
-        $pdo->beginTransaction();
+        try {
+            $pdo->beginTransaction();
 
-        if ($id) {
-            // Actualizar proveedor existente
-            $sql = "UPDATE proveedores SET nombre = :nombre, contacto = :contacto WHERE id = :id";
+            // Eliminar proveedor
+            $sql = "DELETE FROM proveedores WHERE id = :id";
             $stmt = $pdo->prepare($sql);
-            $stmt->execute(['nombre' => $nombre, 'contacto' => $contacto, 'id' => $id]);
-        } else {
-            // Insertar nuevo proveedor
-            $sql = "INSERT INTO proveedores (nombre, contacto) VALUES (:nombre, :contacto)";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute(['nombre' => $nombre, 'contacto' => $contacto]);
+            $stmt->execute(['id' => $id]);
+
+            $pdo->commit();
+            header('Location: proveedores.php?deleted=1');
+            exit();
+        } catch (Exception $e) {
+            $pdo->rollBack();
+            $error = "Error al eliminar el proveedor: " . $e->getMessage();
         }
+    } else {
+        // El resto del código para insertar o actualizar
+        $nombre = $_POST['nombre'];
+        $contacto = $_POST['contacto'];
+        $id = isset($_POST['id']) ? $_POST['id'] : null;
 
-        $pdo->commit();
-        header('Location: proveedores.php?success=1');
-        exit();
-    } catch (Exception $e) {
-        $pdo->rollBack();
-        $error = "Error al procesar la solicitud: " . $e->getMessage();
+        try {
+            $pdo->beginTransaction();
+
+            if ($id) {
+                // Actualizar proveedor existente
+                $sql = "UPDATE proveedores SET nombre = :nombre, contacto = :contacto WHERE id = :id";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute(['nombre' => $nombre, 'contacto' => $contacto, 'id' => $id]);
+            } else {
+                // Insertar nuevo proveedor
+                $sql = "INSERT INTO proveedores (nombre, contacto) VALUES (:nombre, :contacto)";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute(['nombre' => $nombre, 'contacto' => $contacto]);
+            }
+
+            $pdo->commit();
+            header('Location: proveedores.php?success=1');
+            exit();
+        } catch (Exception $e) {
+            $pdo->rollBack();
+            $error = "Error al procesar la solicitud: " . $e->getMessage();
+        }
     }
 }
+
 
 // Obtener proveedores
 $sql = "SELECT * FROM proveedores";
@@ -44,6 +66,10 @@ $proveedores = $pdo->query($sql)->fetchAll();
 <body>
     <?php include 'components/header.php'; ?>
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <?php if (isset($_GET['deleted'])): ?>
+    <div class="alert alert-warning">Proveedor eliminado exitosamente.</div>
+<?php endif; ?>
+
         <h1 class="my-4">Proveedores</h1>
 
         <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalProveedor">Agregar Proveedor</button>
@@ -63,21 +89,28 @@ $proveedores = $pdo->query($sql)->fetchAll();
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($proveedores as $proveedor): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($proveedor['nombre']) ?></td>
-                        <td><?= htmlspecialchars($proveedor['contacto']) ?></td>
-                        <td>
-                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#modalProveedor" 
-                                data-id="<?= $proveedor['id'] ?>" 
-                                data-nombre="<?= htmlspecialchars($proveedor['nombre']) ?>" 
-                                data-contacto="<?= htmlspecialchars($proveedor['contacto']) ?>">
-                                Editar
-                            </button>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
+    <?php foreach ($proveedores as $proveedor): ?>
+        <tr>
+            <td><?= htmlspecialchars($proveedor['nombre']) ?></td>
+            <td><?= htmlspecialchars($proveedor['contacto']) ?></td>
+            <td>
+                <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#modalProveedor" 
+                    data-id="<?= $proveedor['id'] ?>" 
+                    data-nombre="<?= htmlspecialchars($proveedor['nombre']) ?>" 
+                    data-contacto="<?= htmlspecialchars($proveedor['contacto']) ?>">
+                    Editar
+                </button>
+                <form method="post" action="proveedores.php" style="display:inline;">
+                    <input type="hidden" name="id" value="<?= $proveedor['id'] ?>">
+                    <button type="submit" name="delete" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar este proveedor?');">
+                        Eliminar
+                    </button>
+                </form>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</tbody>
+
         </table>
 
         <!-- Modal Proveedor -->
