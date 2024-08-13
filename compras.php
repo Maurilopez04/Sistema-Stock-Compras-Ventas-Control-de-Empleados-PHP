@@ -18,6 +18,9 @@ $proveedores = $stmt->fetchAll();
 .select2-container--default .select2-selection--single {
     background-color: #fff;
     border: 1px solid #ced4da;
+    border-radius: 0.25rem; /* Bordes redondeados como en Bootstrap */
+    height: 38px;
+    padding: 0.375rem 0.75rem !important; /* Espaciado interno similar a Bootstrap */
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {

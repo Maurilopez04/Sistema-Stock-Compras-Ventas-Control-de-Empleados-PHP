@@ -13,13 +13,13 @@ $clientes = $stmt->fetchAll();
     <link href="scripts/select2/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="scripts/select2/select2.min.js"></script>
-    <style>
-        /* Estilo general para select2 */
-.select2-container--default .select2-selection--single {
+    <style>.select2-container--default .select2-selection--single {
     background-color: #fff;
     border: 1px solid #ced4da;
+    border-radius: 0.25rem; /* Bordes redondeados como en Bootstrap */
+    height: 38px;
+    padding: 0.375rem 0.75rem !important; /* Espaciado interno similar a Bootstrap */
 }
-
 .select2-container--default .select2-selection--single .select2-selection__rendered {
     color: #495057;
 }

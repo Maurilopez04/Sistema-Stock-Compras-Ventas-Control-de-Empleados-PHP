@@ -5,25 +5,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cliente_id = $_POST['cliente_id'];
     $productos = $_POST['productos'];
     $cantidades = $_POST['cantidades'];
-    $precios = $_POST['precios'];  // Asegúrate de capturar los precios
+    $precios = $_POST['precios'];
 
     // Validar los datos de entrada
     if (empty($cliente_id) || empty($productos) || empty($cantidades) || count($productos) !== count($cantidades)) {
         die('Datos de entrada inválidos');
     }
 
-    // Registrar la venta y actualizar el stock
     $pdo->beginTransaction();
 
     try {
+        // Calcular el total de la venta
+        $total_venta = 0;
+        foreach ($productos as $index => $producto_id) {
+            $total_venta += $cantidades[$index] * $precios[$index];
+        }
+
+        // Insertar en la tabla de ventas
+        $stmt = $pdo->prepare("INSERT INTO ventas (cliente_id, total) VALUES (:cliente_id, :total)");
+        $stmt->execute([
+            'cliente_id' => $cliente_id,
+            'total' => $total_venta
+        ]);
+
+        // Obtener el ID de la venta recién creada
+        $venta_id = $pdo->lastInsertId();
+
+        // Insertar cada producto en la tabla ventas_detalle
         foreach ($productos as $index => $producto_id) {
             $cantidad = $cantidades[$index];
-            $precio = $precios[$index];  // Usa el precio modificado por el usuario
+            $precio = $precios[$index];
 
-            // Insertar en la tabla de ventas
-            $stmt = $pdo->prepare("INSERT INTO ventas (cliente_id, producto_id, cantidad, precio) VALUES (:cliente_id, :producto_id, :cantidad, :precio)");
+            $stmt = $pdo->prepare("INSERT INTO ventas_detalle (venta_id, producto_id, cantidad, precio) VALUES (:venta_id, :producto_id, :cantidad, :precio)");
             $stmt->execute([
-                'cliente_id' => $cliente_id,
+                'venta_id' => $venta_id,
                 'producto_id' => $producto_id,
                 'cantidad' => $cantidad,
                 'precio' => $precio
