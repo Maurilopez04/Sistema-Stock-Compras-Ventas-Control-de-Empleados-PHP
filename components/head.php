@@ -4,8 +4,9 @@
 <title>Sistema Bytech</title>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<link href="components/assets/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <!-- Favicons -->
 <link rel="apple-touch-icon" href="components/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
 <link rel="icon" href="components/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">

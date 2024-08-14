@@ -94,7 +94,7 @@
   </symbol>
 </svg>
 
-<header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark" style="">
+<header class="navbar sticky-top bg-primary flex-md-nowrap p-0 shadow" data-bs-theme="dark" style="">
   <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="#">Bytech Paraguay</a>
 
   <ul class="navbar-nav flex-row d-md-none">
@@ -157,7 +157,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="proveedores.php">
-                <svg class="bi"><use xlink:href="#people"></use></svg>
+              <i class="bi bi-truck"></i>
                 Proveedores
               </a>
             </li>
@@ -169,30 +169,6 @@
             </li>
 
           </ul>
-          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
-            <span>Stock</span>
-          </h6>
-          <ul class="nav flex-column mb-auto">
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="movimientos.php">
-                <svg class="bi"><use xlink:href="#file-earmark-text"></use></svg>
-                Movimientos
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="entrada.php">
-                <svg class="bi"><use xlink:href="#file-earmark-text"></use></svg>
-                Registrar Entrada
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="salida.php">
-                <svg class="bi"><use xlink:href="#file-earmark-text"></use></svg>
-                Registrar Salida
-              </a>
-            </li>
-       
-          </ul>
 
           <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
             <span>Compras/Ventas</span>
@@ -200,13 +176,13 @@
           <ul class="nav flex-column mb-auto">
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="compras.php">
-                <svg class="bi"><use xlink:href="#file-earmark-text"></use></svg>
+              <i class="bi bi-cart-plus mb-1"></i>
                 Comprar
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="ventas.php">
-                <svg class="bi"><use xlink:href="#file-earmark-text"></use></svg>
+              <i class="bi bi-basket2-fill mb-1"></i>
                 Vender
               </a>
             </li>
@@ -224,39 +200,62 @@
             </li>
           </ul>
 
-     <!--     <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
-            <span>Reportes</span>
-            <a class="link-secondary" href="#" aria-label="Add a new report">
-              <svg class="bi"><use xlink:href="#plus-circle"></use></svg>
-            </a>
+          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
+            <span>Stock</span>
           </h6>
           <ul class="nav flex-column mb-auto">
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
-                <svg class="bi"><use xlink:href="#file-earmark-text"></use></svg>
-                Ventas
+              <a class="nav-link d-flex align-items-center gap-2" href="movimientos.php">
+              <i class="bi bi-arrow-left-right"></i>
+                Movimientos
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
-                <svg class="bi"><use xlink:href="#file-earmark-text"></use></svg>
-                Compras
+              <a class="nav-link d-flex align-items-center gap-2" href="entrada.php">
+              <i class="bi bi-plus-square"></i>
+                Registrar Entrada
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
-                <svg class="bi"><use xlink:href="#file-earmark-text"></use></svg>
-                Stock
+              <a class="nav-link d-flex align-items-center gap-2" href="salida.php">
+              <i class="bi bi-dash-square"></i>
+                Registrar Salida
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
-                <svg class="bi"><use xlink:href="#file-earmark-text"></use></svg>
-                Gastos
-              </a>
-            </li>
+       
           </ul>
--->
+
+
+
+<!-- Sidebar Navigation -->
+<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
+    <span>Empleados</span>
+    <!--<a class="link-secondary" href="addEmpleado.php" aria-label="Add a new employee">
+      <svg class="bi"><use xlink:href="#plus-circle"></use></svg>
+    </a>-->
+</h6>
+<ul class="nav flex-column mb-auto">
+    <li class="nav-item">
+        <a class="nav-link d-flex align-items-center gap-2" href="empleados.php">
+            <i class="bi bi-person-badge-fill"></i>
+            Gestión de Empleados
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link d-flex align-items-center gap-2" href="addTransaccion.php">
+        <i class="bi bi-person-plus-fill"></i>
+            Agregar Transacción
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link d-flex align-items-center gap-2" href="verTodasTransacciones.php">
+            <svg class="bi"><use xlink:href="#file-earmark-text"></use></svg>
+            Registros Transacciones
+        </a>
+    </li>
+
+</ul>
+
           <hr class="my-3">
 
           <ul class="nav flex-column mb-auto">

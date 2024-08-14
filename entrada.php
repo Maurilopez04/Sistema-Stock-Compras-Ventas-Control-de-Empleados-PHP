@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php include 'components/header.php'?>
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="container">
-        <h1>Registrar Entrada</h1>
+        <h1 class="mt-4">Registrar Entrada</h1>
         <form method="post">
             <div class="row mb-4">
                 <div class="col-md-6">
